@@ -1,6 +1,8 @@
 question_index = 0;
 timer = 30;
 the_timer = true;
+var my_timer;
+var wait_for_new_question;
 
 questions = [
 	{
@@ -17,28 +19,22 @@ questions = [
 
 function right_answer(){
 	the_timer = false;
-	stop();
 	$("#question").empty();
 	$("#answers").empty();
-	window.setInterval(function(){
-		new_question();
-	}, 5000);
+	wait_for_new_question = setTimeout(new_question, 5000);
 }
 
 function wrong_answer(){
 	the_timer = false;
-	stop();
 	$("#question").empty();
 	$("#answers").empty();
-	var wait_for_new_question = setTimeout(new_question, 5000);
+	wait_for_new_question = setTimeout(new_question, 5000);
 }
 
 function validate_answer(){
 	selected_answer = $("[data-answer='selected']").text();
 	the_correct_answer = questions[question_index].correct_answer;
-	console.log("Selected answer: " + selected_answer);
-	console.log("The correct answer: " + the_correct_answer);
-	
+
 	if(selected_answer === the_correct_answer){
 		right_answer();
 	}
@@ -48,9 +44,10 @@ function validate_answer(){
 }
 
 function start_timer(){
+	clearInterval(my_timer);
 	the_timer = true;
 	timer = 30;
-	var my_timer = setInterval(new_timer, 1000);
+	my_timer = setInterval(new_timer, 1000);
 }
 
 function new_timer(){
@@ -62,6 +59,7 @@ function new_timer(){
 }
 
 function new_question(){
+	start_timer();
 
 	//This creates a new div with the text value of the current question
 	//it will then append it to the page to the #question ID
