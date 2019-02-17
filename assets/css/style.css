@@ -1,0 +1,64 @@
+body{
+	font-family: 'Inconsolata', monospace;
+	height: 100%;
+	margin: 0px;
+	background-image: url("../images/background.jpg");
+	display: flex;
+	justify-content: center;
+}
+
+.banner{
+	color: blue;
+	font-size: 80px;
+	background-color: white;
+}
+
+.timer{
+	color: black;
+	font-size: 80px;
+	background-color: rgba(123, 155, 244, 0.75);
+	margin: 40px 0px;
+}
+
+.content{
+	background-image: url("../images/wallpaper.jpg");
+	background-size:     cover;
+	width: 70%;
+	height: 100%;
+	text-align: center;
+	font-size: 30px;
+	color: black;
+	padding: 80px 0px;
+	margin: 40px 0px;
+}
+
+.submit_button{
+	width: 200px;
+	margin-top: 40px;
+	background-color: #6CF3C8; /* Green */
+	border: none;
+	color: black;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 20px;
+}
+
+#question{
+	background-color: white;
+	margin: 0px;
+}
+
+#answers{
+	background-color: rgba(123, 155, 244, 0.75);
+	user-select: none;
+}
+
+.answer:hover{
+	background-color: rgba(15, 60, 184, 0.75);
+}
+
+[data-answer='selected']{
+	background-color: rgba(15, 60, 184, 0.75);
+}
