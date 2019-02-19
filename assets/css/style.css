@@ -62,3 +62,7 @@ body{
 [data-answer='selected']{
 	background-color: rgba(15, 60, 184, 0.75);
 }
+
+#results{
+	background-color: white;
+}
