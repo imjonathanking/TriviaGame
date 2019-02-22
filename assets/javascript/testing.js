@@ -18,6 +18,11 @@ var structure = {
             question: "What is Dill's last name",
             answers: ["King", "Benjamin", "Pickles", "Achmed"],
             correct_answer: "Pickles"
+        },
+        {
+            question: "In the Christmas special, where was the coal in the Cynthia playhouse?",
+            answers: ["The attached garage", "The jaccuzi", "The kitchen", "The patio"],
+            correct_answer: "The attached garage"
         }
     ],
 
@@ -147,8 +152,12 @@ var structure = {
         correct_result = $("<div>").text("The correct answer: " + the_correct_answer);
         correct_result.addClass("result");
 
+        //This will create a gif
+        out_of_time_gif = $("<img>");
+        out_of_time_gif.attr("src", "assets/images/you_lose.gif");
+
         //This will append the results to the $("#results") div
-        $("#results").append(time_up_result, correct_result);
+        $("#results").append(time_up_result, correct_result, out_of_time_gif);
 
         //This will add 1 to the question index
         question_index++;
