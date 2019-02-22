@@ -21,6 +21,7 @@ function right_answer(){
 	the_timer = false;
 	$("#question").empty();
 	$("#answers").empty();
+	
 	wait_for_new_question = setTimeout(new_question, 5000);
 }
 
@@ -28,6 +29,9 @@ function wrong_answer(){
 	the_timer = false;
 	$("#question").empty();
 	$("#answers").empty();
+
+	//Create a div that displays you guessed the wrong answer
+
 	wait_for_new_question = setTimeout(new_question, 5000);
 }
 

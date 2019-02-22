@@ -99,7 +99,18 @@ var structure = {
         the_timer = false;
         $("#question").empty();
         $("#answers").empty();
-        structure.display_results();
+
+        $(".submit_button").hide();
+
+        result_div = $("<div>");
+        correct_answer = $("<div>").text("You are correct!");
+        correct_gif = $("<img>");
+        correct_gif.attr("src", "assets/images/you_win.gif");
+
+        result_div.append(correct_answer);
+        $("#results").append(result_div, correct_gif);
+        
+
         wait_for_new_question = setTimeout(structure.new_question, 5000);
     },
 
@@ -109,18 +120,18 @@ var structure = {
         the_timer = false;
         $("#question").empty();
         $("#answers").empty();
-        structure.display_results();
-        wait_for_new_question = setTimeout(structure.new_question, 5000);
-    },
 
-    display_results: function(){
-        console.log("display results");
         $(".submit_button").hide();
-        correct_result = $("<div>").text("The correct answer: " + the_correct_answer);
-        correct_result.addClass("result");
-        user_result = $("<div>").text("Your answer:  " + selected_answer);
-        user_result.addClass("result");
-        $("#results").append(correct_result, user_result);
+
+        //This should display a div that says: "Wrong answer, the correct answer was _____ , and a gif"
+        this_result = $("<div>");
+        wrong_answer = $("<div>").text("Wrong answer");
+        the_correct_answer = $("<div>").text("The correct answer: " + the_correct_answer);
+        wrong_answer_gif = $("<img>").attr("src", "assets/images/you_lose.gif");
+        this_result.append(wrong_answer, the_correct_answer, wrong_answer_gif);
+        $("#results").append(this_result);
+
+        wait_for_new_question = setTimeout(structure.new_question, 5000);
     },
 
     out_of_time: function(){
