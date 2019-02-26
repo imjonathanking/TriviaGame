@@ -19,17 +19,17 @@ var structure = {
             question: "What is Dill's last name",
             answers: ["King", "Benjamin", "Pickles", "Achmed"],
             correct_answer: "Pickles"
+        },
+        {
+            question: "In the Christmas special, where was the coal in the Cynthia playhouse?",
+            answers: ["The attached garage", "The jaccuzi", "The kitchen", "The patio"],
+            correct_answer: "The attached garage"
+        },
+        {
+            question: "How is Angelica related to Tommy?",
+            answers: ["Tommy is Angelica's brother", "They are not related", "Angelica is Tommy's mom", "They are first cousins"],
+            correct_answer: "They are first cousins"
         }
-        // {
-        //     question: "In the Christmas special, where was the coal in the Cynthia playhouse?",
-        //     answers: ["The attached garage", "The jaccuzi", "The kitchen", "The patio"],
-        //     correct_answer: "The attached garage"
-        // },
-        // {
-        //     question: "How is Angelica related to Tommy?",
-        //     answers: ["Tommy is Angelica's brother", "They are not related", "Angelica is Tommy's mom", "They are first cousins"],
-        //     correct_answer: "They are first cousins"
-        // }
     ],
 
     restart: function(){
