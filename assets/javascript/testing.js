@@ -5,6 +5,7 @@ var my_timer;
 var wait_for_new_question;
 var correct_answers = 0;
 var incorrect_answers = 0;
+var questions_asked = 0;
 
 var structure = {
 
@@ -18,49 +19,86 @@ var structure = {
             question: "What is Dill's last name",
             answers: ["King", "Benjamin", "Pickles", "Achmed"],
             correct_answer: "Pickles"
-        },
-        {
-            question: "In the Christmas special, where was the coal in the Cynthia playhouse?",
-            answers: ["The attached garage", "The jaccuzi", "The kitchen", "The patio"],
-            correct_answer: "The attached garage"
         }
+        // {
+        //     question: "In the Christmas special, where was the coal in the Cynthia playhouse?",
+        //     answers: ["The attached garage", "The jaccuzi", "The kitchen", "The patio"],
+        //     correct_answer: "The attached garage"
+        // },
+        // {
+        //     question: "How is Angelica related to Tommy?",
+        //     answers: ["Tommy is Angelica's brother", "They are not related", "Angelica is Tommy's mom", "They are first cousins"],
+        //     correct_answer: "They are first cousins"
+        // }
     ],
 
-    new_question: function(){
-        structure.start_timer();
-
-        //This will empty out the results from the previous question
+    restart: function(){
+        $(".banner").empty();
         $("#results").empty();
+        question_index = 0;
+        correct_answers = 0;
+        incorrect_answers = 0;
+        questions_asked = 0;
+        structure.new_question();
+    },
 
-        //This will show the submit button
-        $(".submit_button").show();
+    new_question: function(){
 
-        //This creates a new div with the text value of the current question
-        //it will then append it to the page to the #question ID
-        this_question = $("<div>");
-        this_question.text(structure.questions[question_index].question);
-        this_question.addClass("question");
-        $("#question").append(this_question);
+        //If all questions have been answers display results
+        if (questions_asked === structure.questions.length){
+            $(".timer").empty();
+            $("#results").empty();
 
-        //This will iterate through the answers array of the current question,
-        //place all the answers into divs and append them to the #answers ID
-        these_answers = structure.questions[question_index].answers;
-        for (i = 0; i < these_answers.length; i++){
-            this_answer = $("<div>");
-            this_answer.text(these_answers[i]);
-            this_answer.addClass("answer");
-            this_answer.attr("data-answer", "unselected");
-            $("#answers").append(this_answer);
+            game_over_banner = $("<div>").addClass("banner").text("Game over!");
+            correct_answers_div = $("<div>");
+            correct_answers_div.text("Correct answers: " + correct_answers);
+
+            incorrect_answers_div = $("<div>");
+            incorrect_answers_div.text("Incorrect answers: " + incorrect_answers);
+
+            restart_button = $("<button>").text("Restart");
+            restart_button.attr("onclick", "structure.restart()");
+            restart_button.addClass("submit_button");
+
+            $(".timer").append(game_over_banner);
+            $("#results").append(correct_answers_div, incorrect_answers_div, restart_button);
         }
+        //else start game
+        else{
+            structure.start_timer();
 
-        //This is if the user selects an answer
-        $(".answer").on("click", function(){
-            //This will remove selected from any answers that are already selected
-            $("[data-answer='selected']").attr("data-answer", "unselected");
-            //This will change the data-answer attribute of the clicked answer to "selected"
-            $(this).attr("data-answer", "selected");
-        });
+            //This will empty out the results from the previous question
+            $("#results").empty();
 
+            //This will show the submit button
+            $(".submit_button").show();
+
+            //This creates a new div with the text value of the current question
+            //it will then append it to the page to the #question ID
+            this_question = $("<div>");
+            this_question.text(structure.questions[question_index].question);
+            this_question.addClass("question");
+            $("#question").append(this_question);
+
+            //This will iterate through the answers array of the current question,
+            //place all the answers into divs and append them to the #answers ID
+            these_answers = structure.questions[question_index].answers;
+            for (i = 0; i < these_answers.length; i++){
+                this_answer = $("<div>");
+                this_answer.text(these_answers[i]);
+                this_answer.addClass("answer");
+                this_answer.attr("data-answer", "unselected");
+                $("#answers").append(this_answer);
+            }
+
+            //This is if the user selects an answer
+            $(".answer").on("click", function(){
+                //This will remove selected from any answers that are already selected
+                $("[data-answer='selected']").attr("data-answer", "unselected");
+                //This will change the data-answer attribute of the clicked answer to "selected"
+                $(this).attr("data-answer", "selected");
+            });
+        }
     },
 
     start_timer: function(){
@@ -89,6 +127,10 @@ var structure = {
     validate_answer: function(){
         selected_answer = $("[data-answer='selected']").text();
         the_correct_answer = structure.questions[question_index].correct_answer;
+
+        questions_asked++;
+        console.log("Questions asked: " + questions_asked);
+        console.log("All questions: " + structure.questions.length);
 
         if(selected_answer === the_correct_answer){
             structure.right_answer();
@@ -140,6 +182,8 @@ var structure = {
     },
 
     out_of_time: function(){
+        incorrect_answers++;
+        questions_asked++;
         the_timer = false;
         $("#question").empty();
         $("#answers").empty();
